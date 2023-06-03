@@ -1,7 +1,10 @@
 from typing import Union
 from fastapi import FastAPI
-from app.test.test import executeTest
+from dotenv import load_dotenv
+from app.test.test import test_gets
+
+load_dotenv()
 
 app = FastAPI()
 
-executeTest()
+test_gets()

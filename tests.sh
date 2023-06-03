@@ -1,0 +1,1 @@
+pytest app/test/test.py -s
