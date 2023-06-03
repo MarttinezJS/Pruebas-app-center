@@ -5,13 +5,15 @@ networks:
     external: false
 
 services:
-  # appcenter_tests:
-  #   image: appcenter_tests:0.0.1
-  #   container_name: appcenter-tests
-  #   build: .
-  #   restart: always
-  #   networks:
-  #     - tdd_tests
+  appcenter_tests:
+    image: appcenter_tests:0.0.1
+    container_name: appcenter-tests
+    build: .
+    restart: always
+    networks:
+      - tdd_tests
+    depends_on:
+      - mongo
     
   mongo:
     image: mongo:7.0.0-rc2
