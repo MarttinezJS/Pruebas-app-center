@@ -1,16 +1,15 @@
 # Pruebas automatizadas de app center
-## Instalacion de python
-Primero que nada, siguiendo las guias se instala python en la computadora donde se quiere montar el ambiente
-- [Windows](https://learn.microsoft.com/en-us/windows/python/beginners)
-- [Ubuntu](https://docs.aws.amazon.com/es_es/elasticbeanstalk/latest/dg/eb-cli3-install-linux.html)
->
+Se ejecutarán las pruebas basadas en datos, con pytest, datos guardados en mongo, los cuales pueden ser accedidos atra vez de mongo express en el puerto 8081
 ## Ejecucion del ambiente de pruebas
 Lo primero es clonar este repo haciendo un 
 ~~~
 git clone https://github.com/MarttinezJS/Pruebas-app-center.git
 ~~~
-Luego ingresamos a la carpeta del proyecto ejecutamos el comando
+Luego ingresamos a la carpeta del proyecto
 ~~~
-uvicorn app.main:app --reload
+cd Pruebas-app-center
 ~~~
-Y por último en consola se mostraran las pruebas programadas
+Y por último ejecutar las pruebas
+~~~
+pytest app/test/test.py -s
+~~~
