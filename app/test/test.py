@@ -2,6 +2,7 @@ import json
 from mongoengine import connect
 from get_model import Gets
 from post_model import Posts
+from delete_model import Deletes
 import requests
 import os
 
@@ -21,6 +22,22 @@ def test_posts():
             print(chr(27) + '[0;33m\t' + data.name)
             resp = client_post(
                 baseURL + test.endpoint.replace("{user_id}", data.request.uid), data.request.body)
+            if (resp.status_code == data.expectedStatusCode):
+                print(chr(27) + '[3;32m\tPass')
+            else:
+                print(chr(27) + '[3;31m\tNo Pass')
+            assert resp.status_code == data.expectedStatusCode
+
+
+def test_deletes():
+    print(chr(27) + '[1;37m\n' +
+          '================================ Métodos DELETE ==============================')
+    for test in Deletes.objects:
+        print(chr(27) + '[0;34m' + test._id + ' - ' + test.name)
+        for data in test.data:
+            print(chr(27) + '[0;33m\t' + data.name)
+            resp = client_delete(
+                baseURL + test.endpoint + data.request.device_id, data.request.headers)
             if (resp.status_code == data.expectedStatusCode):
                 print(chr(27) + '[3;32m\tPass')
             else:
@@ -64,59 +81,15 @@ def client_post(url: str, body):
     return resp
 
 
-# def saveDevice():
-#     payload = {'udid': '1',
-#                'model': 'S20',
-#                'os_build': '1',
-#                'os_version': '12.2.5',
-#                'serial': '',
-#                'imei': '',
-#                'owner_id': 'string'}
-#     resp = save_device(
-#         baseURL, 'f997d625-0bef-45b4-a5b3-e7cd43973fd6', {'accept': 'application/json', "X-API-Token": apiKey, "Content-Type": "application/json"}, payload)
-#     formatResponse(resp, 'save device')
-
-
-# def saveDeviceNoBody():
-#     resp = save_device(
-#         baseURL, 'f997d625-0bef-45b4-a5b3-e7cd43973fd6', {'accept': 'application/json', "X-API-Token": apiKey, "Content-Type": "application/json"})
-#     formatResponse(resp, 'save device without payload')
-
-
-# def saveDeviceNoUserId():
-#     payload = {'udid': '1',
-#                'model': 'S20',
-#                'os_build': '1',
-#                'os_version': '12.2.5',
-#                'serial': '',
-#                'imei': '',
-#                'owner_id': 'string'}
-#     resp = save_device(
-#         baseURL, 'f997d625-0bef-45b4-e7cd43973fd6', {'accept': 'application/json', "X-API-Token": apiKey, "Content-Type": "application/json"}, payload)
-#     formatResponse(resp, 'save device with wrong user id')
-
-# def executeTest():
-#     print(chr(27) + '[1;33m' + 'Get User')
-#     userValidToken()
-#     userInvalidToken()
-#     userNotToken()
-#     print(chr(27) + '[1;33m' + 'Save device')
-#     saveDevice()
-#     saveDeviceNoBody()
-#     saveDeviceNoUserId()
-#     print(chr(27) + '[1;33m' + 'Get device')
-#     getDevice()
-#     getDeviceNotFound()
-#     getDeviceWrongToken()
-#     print(chr(27) + '[1;33m' + 'Get devices')
-#     getDevices()
-#     getDevicesNotToken()
-#     getDevicesInvalidToken()
-#     print(chr(27) + '[1;33m' + 'Get devices')
-#     deleteDevice()
-#     deleteDeviceWrongId()
-#     deleteDeviceNoToken()
-
+def client_delete(url: str, headers):
+    if (headers == None):
+        headers = {
+            "accept": 'application/json',
+            'X-API-Token': apiKey,
+            "Content-Type": "application/json"
+        }
+    resp = requests.delete(url, headers=headers)
+    return resp
 
 # def deleteDevice():
 #     resp = delete_device(baseURL, '1', {'accept': 'application/json',
