@@ -1,5 +1,7 @@
+import json
 from mongoengine import connect
-from models import Gets
+from get_model import Gets
+from post_model import Posts
 import requests
 import os
 
@@ -8,6 +10,22 @@ connect(os.getenv("DB_NAME", "tests"), username=os.getenv("DB_USER", "root"), pa
         "root"), authentication_source='admin', host=os.getenv("DB_HOST", "localhost"), port=os.getenv("DB_PORT", 27017))
 apiKey = 'ee867e313355e30237f283773f47ac1350bab3aa'
 baseURL = 'https://api.appcenter.ms/v0.1'
+
+
+def test_posts():
+    print(chr(27) + '[1;37m\n' +
+          '================================ Métodos POST ===============================')
+    for test in Posts.objects:
+        print(chr(27) + '[0;34m' + test._id + ' - ' + test.name)
+        for data in test.data:
+            print(chr(27) + '[0;33m\t' + data.name)
+            resp = client_post(
+                baseURL + test.endpoint.replace("{user_id}", data.request.uid), data.request.body)
+            if (resp.status_code == data.expectedStatusCode):
+                print(chr(27) + '[3;32m\tPass')
+            else:
+                print(chr(27) + '[3;31m\tNo Pass')
+            assert resp.status_code == data.expectedStatusCode
 
 
 def test_gets():
@@ -24,7 +42,6 @@ def test_gets():
             else:
                 print(chr(27) + '[3;31m\tNo Pass')
             assert resp.status_code == data.expectedStatusCode
-            # assert True
 
 
 def add_parameters(raw_params):
@@ -38,46 +55,13 @@ def client_get(url: str, headers):
     return resp
 
 
-# def getDevices():
-#     resp = get_devices(baseURL, {'accept': 'application/json',
-#                        "X-API-Token": apiKey, "Content-Type": "application/json"})
-
-#     formatResponse(resp, 'get devices')
-
-
-# def getDevicesNotToken():
-#     resp = get_devices(
-#         baseURL, {'accept': 'application/json', "Content-Type": "application/json"})
-#     formatResponse(resp, 'get devices without token')
-
-
-# def getDevicesInvalidToken():
-#     resp = get_devices(baseURL, {'accept': 'application/json',
-#                        "X-API-Token": apiKey + '1assa23', "Content-Type": "application/json"})
-#     formatResponse(resp, 'get devices with invalid token')
-
-
-# def executeTest():
-#     print(chr(27) + '[1;33m' + 'Get User')
-#     userValidToken()
-#     userInvalidToken()
-#     userNotToken()
-#     print(chr(27) + '[1;33m' + 'Save device')
-#     saveDevice()
-#     saveDeviceNoBody()
-#     saveDeviceNoUserId()
-#     print(chr(27) + '[1;33m' + 'Get device')
-#     getDevice()
-#     getDeviceNotFound()
-#     getDeviceWrongToken()
-#     print(chr(27) + '[1;33m' + 'Get devices')
-#     getDevices()
-#     getDevicesNotToken()
-#     getDevicesInvalidToken()
-#     print(chr(27) + '[1;33m' + 'Get devices')
-#     deleteDevice()
-#     deleteDeviceWrongId()
-#     deleteDeviceNoToken()
+def client_post(url: str, body):
+    resp = requests.post(url, headers={
+        "accept": 'application/json',
+        'X-API-Token': apiKey,
+        "Content-Type": "application/json"
+    }, data=json.dumps(body))
+    return resp
 
 
 # def saveDevice():
@@ -110,6 +94,28 @@ def client_get(url: str, headers):
 #     resp = save_device(
 #         baseURL, 'f997d625-0bef-45b4-e7cd43973fd6', {'accept': 'application/json', "X-API-Token": apiKey, "Content-Type": "application/json"}, payload)
 #     formatResponse(resp, 'save device with wrong user id')
+
+# def executeTest():
+#     print(chr(27) + '[1;33m' + 'Get User')
+#     userValidToken()
+#     userInvalidToken()
+#     userNotToken()
+#     print(chr(27) + '[1;33m' + 'Save device')
+#     saveDevice()
+#     saveDeviceNoBody()
+#     saveDeviceNoUserId()
+#     print(chr(27) + '[1;33m' + 'Get device')
+#     getDevice()
+#     getDeviceNotFound()
+#     getDeviceWrongToken()
+#     print(chr(27) + '[1;33m' + 'Get devices')
+#     getDevices()
+#     getDevicesNotToken()
+#     getDevicesInvalidToken()
+#     print(chr(27) + '[1;33m' + 'Get devices')
+#     deleteDevice()
+#     deleteDeviceWrongId()
+#     deleteDeviceNoToken()
 
 
 # def deleteDevice():
