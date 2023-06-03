@@ -9,6 +9,10 @@ Luego ingresamos a la carpeta del proyecto
 ~~~
 cd Pruebas-app-center
 ~~~
+instalar pytest
+~~~
+pip install -U pytest
+~~~
 Y por último ejecutar las pruebas
 ~~~
 pytest app/test/test.py -s
