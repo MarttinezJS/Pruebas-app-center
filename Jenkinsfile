@@ -9,10 +9,8 @@ node {
     }
   }
   stage('Testing'){
-    steps{
-      def scriptTest = "${WORKSPACE}/tests.sh"
-      sh "chmod +x ${scriptTest} && sh ${scriptTest}"
-    }
+    def scriptTest = "${WORKSPACE}/tests.sh"
+    sh "chmod +x ${scriptTest} && sh ${scriptTest}"
   }
   stage('Clear'){
     cleanWs()
