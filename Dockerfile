@@ -3,6 +3,8 @@ WORKDIR /home
 COPY ./requirements.txt /home/requirements.txt
 RUN pip install --no-cache-dir --upgrade -r /home/requirements.txt
 COPY ./app /home/app
+RUN mkdir scripts
+COPY ./tests.sh /home/scripts/tests.sh
 COPY ./entrypoint.sh /home/entrypoint.sh
 RUN ["chmod", "+x", "/home/entrypoint.sh"]
-ENTRYPOINT ["/home/entrypoint.sh"]
+ENTRYPOINT ["/bin/sh","/home/entrypoint.sh"]

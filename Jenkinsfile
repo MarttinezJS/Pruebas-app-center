@@ -1,4 +1,11 @@
-echo '###### Descargando repo ######'
-git 'https://github.com/MarttinezJS/Pruebas-app-center.git'
-sh label: '###### Pruebas  ######', script: '''pip install pytest
-pytest app/test/test.py -s'''
+node {
+  stage('SCM') {
+    checkout scm
+  }
+  stage('SonarQube Analysis') {
+    def scannerHome = tool 'sonarqube';
+    withSonarQubeEnv() {
+      sh "${scannerHome}/bin/sonar-scanner"
+    }
+  }
+}

@@ -8,7 +8,7 @@ import os
 
 
 connect(os.getenv("DB_NAME", "tests"), username=os.getenv("DB_USER", "root"), password=os.getenv("DB_PASSWORD",
-        "root"), authentication_source='admin', host=os.getenv("DB_HOST", "localhost"), port=os.getenv("DB_PORT", 27017))
+        "root"), authentication_source='admin', host=os.getenv("DB_HOST", "localhost"))
 apiKey = 'ee867e313355e30237f283773f47ac1350bab3aa'
 baseURL = 'https://api.appcenter.ms/v0.1'
 

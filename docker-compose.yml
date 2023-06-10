@@ -10,6 +10,12 @@ services:
     container_name: appcenter-tests
     build: .
     restart: always
+    environment:
+      - DB_NAME=tests
+      - DB_USER=root
+      - DB_PASSWORD=root
+      - DB_HOST=mongo
+      - DB_PORT=27017
     networks:
       - tdd_tests
     depends_on:
