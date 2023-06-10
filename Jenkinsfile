@@ -8,6 +8,12 @@ node {
       sh "${scannerHome}/bin/sonar-scanner"
     }
   }
+  stage('Testing'){
+    steps{
+      def scriptTest = "${WORKSPACE}/tests.sh"
+      sh "chmod +x ${scriptTest} && sh ${scriptTest}"
+    }
+  }
   stage('Clear'){
     cleanWs()
   }
