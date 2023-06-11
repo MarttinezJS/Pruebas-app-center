@@ -1,4 +1,2 @@
-python3.10 -m venv ./venv
-. ./venv/bin/activate
-pip install -U pytest
-pytest app/test/test.py -s
+pytest app/test/test.py -s -v > result.txt
+uvicorn app.main:app --host 0.0.0.0 --port 80
