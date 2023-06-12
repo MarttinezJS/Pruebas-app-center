@@ -1,5 +1,4 @@
 node {
-  stages {
     stage('Github') {
       checkout scm
     }
@@ -32,5 +31,4 @@ node {
     // stage('Clear'){
     //   cleanWs()
     // }
-  }
 }
