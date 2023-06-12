@@ -9,10 +9,13 @@ node {
   //   }
   // }
   stage('API Testing'){
-    agent {
-      docker { image 'python:3.9' }
+    def testImage = docker.build("test-image", "./Dockerfile.test") 
+    testImage.inside {
+        sh '
+          rm -rf reports; mkdir reports
+          pytest app/test/test.py -s -v
+        '
     }
-    sh ("/var/jenkins_home/workspace/appcenter-api-tests/tests.sh")
     // sh '''IMAGE_NAME="test-image"
     //   CONTAINER_NAME="test-container"
     //   echo "Check current working directory"
