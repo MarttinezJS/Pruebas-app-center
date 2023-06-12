@@ -9,10 +9,7 @@ node {
   //   }
   // }
   stage('API Testing'){
-    agent {
-      docker { image 'python:3.10' }
-    }
-    sh ("python3.10 --version")
+    bat 'python --version'
     // sh '''IMAGE_NAME="test-image"
     //   CONTAINER_NAME="test-container"
     //   echo "Check current working directory"
