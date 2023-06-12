@@ -1,7 +1,4 @@
 node {
-  agent {
-    docker { image 'python:3.9' }
-  }
   stages {
     stage('Github') {
       checkout scm
@@ -13,6 +10,9 @@ node {
     //   }
     // }
     stage('API Testing'){
+      agent {
+        docker { image 'python:3.9' }
+      }
       sh ('tests.sh')
       // sh '''IMAGE_NAME="test-image"
       //   CONTAINER_NAME="test-container"
