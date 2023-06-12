@@ -11,8 +11,8 @@ node {
   stage('API Testing'){
     def testImage = docker.build("test-image", "./Dockerfile.test") 
     testImage.inside {
-        sh 'rm -rf reports; mkdir reports
-          pytest app/test/test.py -s -v'
+        sh '''rm -rf reports; mkdir reports
+            pytest app/test/test.py -s -v'''
     }
     // sh '''IMAGE_NAME="test-image"
     //   CONTAINER_NAME="test-container"
