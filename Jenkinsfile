@@ -18,9 +18,9 @@ node {
         docker run -d --name $CONTAINER_NAME -e DB_HOST=mongodb+srv://jhonatan:D8JNwKf1bsO2kJtL@estudio.evopu.mongodb.net/tests $IMAGE_NAME
         echo "Copy result into Jenkins container"
         rm -rf reports; mkdir reports
-        docker cp $CONTAINER_NAME:/code/result.txt reports/
         echo "Cleanup"
         docker stop $CONTAINER_NAME
+        docker cp $CONTAINER_NAME:/code/result.txt reports/
         docker rm $CONTAINER_NAME
         docker rmi $IMAGE_NAME'''
   }
