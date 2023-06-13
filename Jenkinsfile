@@ -10,12 +10,15 @@ node {
   // }
   stage('API Testing'){
     agent {
-      docker { image 'python' }
+      docker {     
+        image 'python:3.9-slim'
+        args '-u root --privileged'
+      }
     }
-    withPythonEnv('python3'){
-      sh 'pip install pytest'
-      sh 'pytest tests.py'
-    }
+    sh 'python3 -m venv ./venv'
+    sh '. ./venv/bin/activate'
+    sh 'pip install pytest'
+    sh 'pytest tests.py'
   }
   //   sh '''chmod +x tests.sh
   //         sh tests.sh
