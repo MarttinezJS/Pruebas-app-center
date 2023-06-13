@@ -12,7 +12,7 @@ node {
     agent {
       docker { image 'python:3.10'}
     }
-    sh '''python3 install pytest
+    sh '''pip install pytest
       chmod +x tests.sh
       sh tests.sh
       cat result.txt'''
