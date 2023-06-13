@@ -9,13 +9,18 @@ node {
   //   }
   // }
   stage('API Testing'){
-    agent {
-      docker { dockerfile true }
+    withPythonEnv('python3'){
+      sh 'pip install pytest'
+      sh 'pytest tests.py'
     }
-    sh '''chmod +x tests.sh
-          sh tests.sh
-          cat result.txt'''
   }
+  //   agent {
+  //     docker { dockerfile true }
+  //   }
+  //   sh '''chmod +x tests.sh
+  //         sh tests.sh
+  //         cat result.txt'''
+  // }
   // stage('Clear'){
   //   cleanWs()
   // }
