@@ -9,16 +9,30 @@ node {
   //   }
   // }
   stage('API Testing'){
-    agent {
-      docker {     
-        image 'python:3.9-slim'
-        args '-u root --privileged'
-      }
-    }
-    sh 'apt-get update'
-    sh 'apt-get install python-pip'
-    sh 'pip install pytest'
-    sh 'pytest tests.py'
+  //   agent {
+  //     docker {     
+  //       image 'python:3.9-slim'
+  //       args '-u root --privileged'
+  //     }
+  //   }
+  //   sh 'apt-get install python-pip'
+  //   sh 'pip install pytest'
+  //   sh 'pytest tests.py'
+  // }
+  sh '''IMAGE_NAME="test-image"
+      CONTAINER_NAME="test-container"
+      echo "Check current working directory"
+      pwd
+      echo "Build docker image and run container"
+      docker build -t $IMAGE_NAME -f Dockerfile.test .
+      docker run -d --name $CONTAINER_NAME --network pruebas-app-center_tdd_tests --env DB_NAME=tests --env DB_USER=root --env DB_PASSWORD=root --env DB_HOST=mongo $IMAGE_NAME
+      echo "Copy result into Jenkins container"
+      rm -rf reports; mkdir reports
+      echo "Cleanup"
+      docker stop $CONTAINER_NAME
+      docker cp $CONTAINER_NAME:/code/result.txt reports/
+      docker rm $CONTAINER_NAME
+      docker rmi $IMAGE_NAME'''
   }
   //   sh '''chmod +x tests.sh
   //         sh tests.sh
