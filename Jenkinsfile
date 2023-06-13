@@ -21,6 +21,9 @@ node {
   // }
   sh '''IMAGE_NAME="test-image"
       CONTAINER_NAME="test-container"
+      docker stop $CONTAINER_NAME
+      docker rm $CONTAINER_NAME
+      docker rmi $IMAGE_NAME
       echo "Check current working directory"
       pwd
       echo "Build docker image and run container"
