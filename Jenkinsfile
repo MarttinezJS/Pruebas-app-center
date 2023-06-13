@@ -10,7 +10,7 @@ node {
   // }
   stage('API Testing'){
     agent {
-      docker { image 'python:slim'}
+      docker { dockerfile true }
     }
     sh '''chmod +x tests.sh
           sh tests.sh
