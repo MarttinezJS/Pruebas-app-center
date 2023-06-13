@@ -16,7 +16,7 @@ node {
           pwd
           echo "Build docker image and run container"
           docker build -t $IMAGE_NAME -f Dockerfile.test .
-          docker run -d --name $CONTAINER_NAME --env DB_NAME=tests --env DB_USER=jhonatan --env DB_PASSWORD=D8JNwKf1bsO2kJtL --env DB_HOST=estudio.evopu.mongodb.net $IMAGE_NAME
+          docker run -d --name $CONTAINER_NAME -e DB_HOST=mongodb+srv://jhonatan:D8JNwKf1bsO2kJtL@estudio.evopu.mongodb.net/tests $IMAGE_NAME
           echo "Copy result into Jenkins container"
           rm -rf reports; mkdir reports
           echo "Cleanup"

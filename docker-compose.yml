@@ -11,11 +11,7 @@ services:
     build: .
     restart: always
     environment:
-      - DB_NAME=tests
-      - DB_USER=root
-      - DB_PASSWORD=root
-      - DB_HOST=mongo
-      - DB_PORT=27017
+      - DB_HOST=mongodb+srv://jhonatan:D8JNwKf1bsO2kJtL@estudio.evopu.mongodb.net/tests
     networks:
       - tdd_tests
     depends_on:
