@@ -9,7 +9,7 @@ node {
   //   }
   // }
   stage('API Testing'){
-    steps {
+    step {
       sh '''IMAGE_NAME="test-image"
           CONTAINER_NAME="test-container"
           echo "Check current working directory"
