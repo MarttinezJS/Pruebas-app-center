@@ -15,6 +15,8 @@ node {
         args '-u root --privileged'
       }
     }
+    sh 'apt-get update'
+    sh 'apt-get install python-pip'
     sh 'pip install pytest'
     sh 'pytest tests.py'
   }
