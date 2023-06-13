@@ -12,7 +12,9 @@ node {
     agent {
       docker { image 'python:slim'}
     }
-    sh 'pip3 --version'
+    sh '''apt-get update
+          apt-get install -y python-pip
+          pip --version'''
     // sh '''python3 -m pip install pytest
     //   chmod +x tests.sh
     //   sh tests.sh
