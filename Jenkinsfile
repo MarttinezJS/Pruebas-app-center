@@ -12,13 +12,9 @@ node {
     agent {
       docker { image 'python:slim'}
     }
-    sh '''apt-get update
-          apt-get install -y python-pip
-          pip --version'''
-    // sh '''python3 -m pip install pytest
-    //   chmod +x tests.sh
-    //   sh tests.sh
-    //   cat result.txt'''
+    sh '''chmod +x tests.sh
+          sh tests.sh
+          cat result.txt'''
   }
   // stage('Clear'){
   //   cleanWs()
