@@ -20,9 +20,9 @@ node {
         rm -rf reports; mkdir reports
         echo "Cleanup"
         docker stop $CONTAINER_NAME
-        docker cp $CONTAINER_NAME:/code/result.txt reports/
-        docker rm $CONTAINER_NAME
-        docker rmi $IMAGE_NAME'''
+        docker cp $CONTAINER_NAME:/code/result.txt reports/'''
+        // docker rm $CONTAINER_NAME
+        // docker rmi $IMAGE_NAME'''
   }
   // stage('Clear'){
   //   cleanWs()
