@@ -10,12 +10,12 @@ node {
   // }
   stage('API Testing'){
     agent {
-      docker { image 'fission/python-env' }
+      docker { image 'python' }
     }
+    withPythonEnv('python3'){
       sh 'pip install pytest'
       sh 'pytest tests.py'
-    // withPythonEnv('python3'){
-    // }
+    }
   }
   //   sh '''chmod +x tests.sh
   //         sh tests.sh
