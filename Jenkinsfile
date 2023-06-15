@@ -25,6 +25,5 @@ node {
   stage('Clear'){
     sh '''docker rm test-container
           docker rmi test-image'''
-    // cleanWs()
   }
 }

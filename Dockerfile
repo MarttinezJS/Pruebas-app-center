@@ -1,4 +1,4 @@
-FROM python:alpine3.18
+FROM python:3.9
 WORKDIR /home
 COPY ./requirements.txt /home/requirements.txt
 RUN pip install --no-cache-dir --upgrade -r /home/requirements.txt
