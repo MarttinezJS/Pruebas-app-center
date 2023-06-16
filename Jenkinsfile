@@ -26,4 +26,7 @@ node {
     sh '''docker rm test-container
           docker rmi test-image'''
   }
+  stage('Build'){
+    sh 'docker build -t app-center -f Dockerfile .'
+  }
 }
